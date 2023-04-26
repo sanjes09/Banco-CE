@@ -1,23 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.18e3964a.chunk.css",
-    "main.js": "/static/js/main.ac4b7261.chunk.js",
-    "main.js.map": "/static/js/main.ac4b7261.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.58cbf454.js",
-    "runtime-main.js.map": "/static/js/runtime-main.58cbf454.js.map",
-    "static/js/2.0e1007b2.chunk.js": "/static/js/2.0e1007b2.chunk.js",
-    "static/js/2.0e1007b2.chunk.js.map": "/static/js/2.0e1007b2.chunk.js.map",
+    "main.css": "/static/css/main.e462e83a.css",
+    "main.js": "/static/js/main.c1ff492a.js",
+    "static/media/Lato-Light.ttf": "/static/media/Lato-Light.bfc37ff1d5543ecd4ec6.ttf",
+    "static/media/Lato-Regular.ttf": "/static/media/Lato-Regular.9919edff6283018571ad.ttf",
+    "static/media/Lato-Bold.ttf": "/static/media/Lato-Bold.5dd5aa0269395f0ea927.ttf",
     "index.html": "/index.html",
-    "precache-manifest.a7f7b6ddfa45a027b02cb2a663e8bb6d.js": "/precache-manifest.a7f7b6ddfa45a027b02cb2a663e8bb6d.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.18e3964a.chunk.css.map": "/static/css/main.18e3964a.chunk.css.map",
-    "static/js/2.0e1007b2.chunk.js.LICENSE.txt": "/static/js/2.0e1007b2.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/static/media/Lato-Regular.2d36b1a9.ttf"
+    "main.e462e83a.css.map": "/static/css/main.e462e83a.css.map",
+    "main.c1ff492a.js.map": "/static/js/main.c1ff492a.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.58cbf454.js",
-    "static/js/2.0e1007b2.chunk.js",
-    "static/css/main.18e3964a.chunk.css",
-    "static/js/main.ac4b7261.chunk.js"
+    "static/css/main.e462e83a.css",
+    "static/js/main.c1ff492a.js"
   ]
 }
