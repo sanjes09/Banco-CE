@@ -1,47 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import './navbar.css';
-import {logout} from '../../config/token';
+import { logout } from '../../config/token';
+import { useHistory } from 'react-router-dom'
 
-export class NavBar extends Component {
+const NavBar = (props) => {
+	const history = useHistory();
 
-	render() {
-		return (
-			<Nav className="justify-content-end align-items-center NavBar" style={{height: '75px'}}>
-				<Nav.Item className="ml-4 mr-auto">
-					{/* <img src={ Logo } alt="" style={{width:"17vw"}}/> */}
-				</Nav.Item>
-				<Nav.Item>
-					<Link className={`superCenter text-center nav-link ${this.props.pathname == "/" ? 'active' : ''}`} to="/" style={{height: '75px'}}>Home</Link>
-				</Nav.Item>
-				{this.props.auth?
+	return (
+		<Nav className="justify-content-end align-items-center NavBar" style={{height: '75px'}}>
+			<Nav.Item className="ml-4 mr-auto">
+				{/* <img src={ Logo } alt="" style={{width:"17vw"}}/> */}
+			</Nav.Item>
+			<Nav.Item>
+				<Link className={`superCenter text-center nav-link ${history.location.pathname === "/" ? 'active' : ''}`} to="/" style={{height: '75px'}}>Home</Link>
+			</Nav.Item>
+			{props.auth ?
+				<>
 					<Nav.Item>
-						<Link className={`superCenter text-center nav-link ${this.props.pathname == "/dashboard" ? 'active' : ''}`} to="/dashboard" style={{height: '75px'}}>Dashboard</Link>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/dashboard" ? 'active' : ''}`} to="/dashboard" style={{height: '75px'}}>Dashboard</Link>
 					</Nav.Item>
-				:
-				null}
-				{!this.props.auth?
 					<Nav.Item>
-						<Link className={`superCenter text-center nav-link ${this.props.pathname == "/register" ? 'active' : ''}`} to="/register" style={{height: '75px'}}>Register</Link>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/profile" ? 'active' : ''}`} to="/profile" style={{height: '75px'}}>Profile</Link>
 					</Nav.Item>
+
+					<Link to='/login' className="btn mx-3 nav-button" onClick={logout}>
+						Log out
+					</Link>
+				</>
 				:
-				null
-				}
-				<Nav.Item>
-					{!this.props.auth ?
-						<Link to='/login' className="btn mx-3 nav-button">
-							Log in
-						</Link>
-					:
-						<span className="superCenter text-center nav-link" onClick={logout} style={{cursor: 'pointer'}}>
-							Log Out
-						</span>
-					}
-				</Nav.Item>
-			</Nav>  
-		)
-	}
+				<>
+					<Nav.Item>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/register" ? 'active' : ''}`} to="/register" style={{height: '75px'}}>Register</Link>
+					</Nav.Item>
+					<Link to='/login' className="btn mx-3 nav-button">
+						Log in
+					</Link>
+				</>
+			}
+		</Nav>  
+	)
 }
 
 export default NavBar;

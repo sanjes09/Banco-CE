@@ -1,16 +1,16 @@
 import React from "react";
 import Spinner from 'react-bootstrap/Spinner';
-import LoginLogic from './LoginLogic';
-import './login.css';
+import ProfileLogic from './ProfileLogic';
+import './profile.css';
 
-const Login = () => {
+const Profile = () => {
 
   const {
     loadingSubmit,
     setEmail,
     setPassword,
     handleLogin,
-  } = LoginLogic();
+  } = ProfileLogic();
 
   return (
     <>
@@ -42,4 +42,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default Profile;

@@ -1,7 +1,7 @@
 //IMPORTS
 const router = require("express").Router();
 const jwt = require('jsonwebtoken');
-const transporter = require('../functions/transporter');
+const { transporter } = require('../functions/transporter');
 
 //FUNCTIONS
 const { hash, compare } = require('../functions/passwordHash');
@@ -15,34 +15,7 @@ const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
 const passRegexp = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
 
 //ROUTES
-router.get( "/currentUser", async (req,res) => {
-    const token = req.header("Authorization");
-    if (!token){
-        res.status(401).json({ 
-            ok: false,
-            error: "Access Denied" 
-        });
-        return;
-    }else{
-        let response = await decodeToken(token.split(" ")[1], process.env.SESSION_TOKEN);
-        if(response.error){
-            res.status(401).json({
-                ok: false,
-                error: response.error
-            });
-            return;
-        }else{
-            let user = await User.findById(response.data.id);
-            res.status(200).json({
-                ok: true,
-                user
-            });
-            return;
-        }
-    }
-});
-
-router.get( '/logged', async (req,res) => {
+router.get('/logged', async (req,res) => {
     const token = req.header("Authorization");
     if (!token){
         res.status(401).json({ 
@@ -91,7 +64,7 @@ router.post( '/login', async ( req, res ) => {
         });
         return;
     };
-    if(!data[0].valid){
+    if(!data[0].active){
         res.status(400).json({ 
             ok: false,
             error: "Email not confirmed" 
@@ -172,7 +145,6 @@ router.post( '/signup', async ( req, res ) => {
             password: hashedPassword,
             valid: true
         });
-        await user.save();
     }catch{
         res.status(400).json({
             ok: false,
@@ -181,14 +153,13 @@ router.post( '/signup', async ( req, res ) => {
         return;
     }
 
-    
     let digits = Math.floor(100000 + Math.random() * 900000);
     let confirm = await new Confirm({email: email, token: digits, createdAt: Date.now()});
     
     let numero = digits.toString();
     
     var mailOptions = {
-        from: `Email <${process.env.EMAIL_USER}>`,
+        from: `Cryptobanco <${process.env.EMAIL_USER}>`,
         to: req.body.email,
         subject: 'Verify Account',
         html: `
@@ -234,7 +205,7 @@ router.post( '/reset-password', async ( req, res )=>{
     let link = `${req.headers.x-forwarded-proto}://${req.headers.host}/recover-password/${token}`;
     
     var mailOptions = {
-        from: `Health Commons <${process.env.EMAIL_USER}>`,
+        from: `Cryptobanco <${process.env.EMAIL_USER}>`,
         to: req.body.email,
         subject: 'Reset Password',
         html: `
@@ -326,14 +297,14 @@ router.post( "/new-password", async (req,res) => {
 router.post('/confirm-account', async ( req, res ) =>{
     try {
         let confirm = await Confirm.findOne({email: req.body.email})
-        if((new Date) - confirm.createdAt > 5*60*1000){
+        if(((new Date) - confirm.createdAt) > 5*60*1000){
             res.status(400).json({
                 ok: false,
                 error: "Code Expired!"
             });
         }else{
             if(confirm.token === parseInt(req.body.token)){
-                await User.findOneAndUpdate({email: req.body.email},{valid:true})
+                await User.findOneAndUpdate({email: req.body.email} , {active:true})
                 await confirm.remove();
                 res.status(200).json({
                     ok: true,
@@ -362,7 +333,7 @@ router.post('/resend-code', async ( req, res ) =>{
         let numero = digits.toString();
         
         var mailOptions = {
-            from: `Health Commons <${process.env.EMAIL_USER}>`,
+            from: `Cryptobanco <${process.env.EMAIL_USER}>`,
             to: req.body.email,
             subject: 'Verify Account',
             html: `
@@ -373,7 +344,7 @@ router.post('/resend-code', async ( req, res ) =>{
             `
         };
 
-        transporter.sendMail(mailOptions, function(error, info){
+        transporter.sendMail(mailOptions, async function(error, info){
             if (error) {
                 res.status(400).json({
                     ok: false,
@@ -381,7 +352,7 @@ router.post('/resend-code', async ( req, res ) =>{
                 })
                 return;
             } else {
-                Confirm.findOneAndUpdate({email: req.body.email},{token: digits, createdAt: Date.now()})
+                await Confirm.findOneAndUpdate({email: req.body.email},{token: digits, createdAt: Date.now()})
                 res.status(200).json({
                     ok: true
                 })

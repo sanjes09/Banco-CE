@@ -21,14 +21,14 @@ const LoginLogic = () => {
 
     if(email === '' || password === ''){
       toastr.remove()
-      toastr.warning("Complete todos los campos");
+      toastr.warning("Please complete all the fields");
       setLoadingSubmit(false)
       error = true;
     }
 
     if(!email.match(emailRegexp)){
       toastr.remove()
-      toastr.warning("Email invalido");
+      toastr.warning("Invalid Email");
       setLoadingSubmit(false)
       error = true;
     }
@@ -41,7 +41,7 @@ const LoginLogic = () => {
       Axios.post("/api/login", data).then(response => {
         if(response.data.ok){
           setToken(response.data.token);
-          toastr.success('Sesion iniciada!')
+          toastr.success('Logged!')
           setLoadingSubmit(false)
           setTimeout(() => {
             history.push("/dashboard")

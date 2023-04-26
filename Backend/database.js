@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-console.log('process.env.DB', process.env.DB)
 mongoose.connect(process.env.DB, {
     "auth": {"authSource": process.env.DB_COLLECTION},"user": process.env.DB_USER,"pass": process.env.DB_PASSWORD,
     useUnifiedTopology: true,

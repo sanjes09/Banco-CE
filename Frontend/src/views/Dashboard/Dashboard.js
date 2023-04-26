@@ -18,7 +18,7 @@ const Dashboard = (props) => {
     <>
     <div className="dashboard-main">
       <div className="dashboard-contenedor">
-        <div className="row" style={{marginTop: '20vh'}}>
+        <div className="row mx-0 px-0" style={{marginTop: '20vh'}}>
           <div className="col-6 mx-auto border-shadow dashboard-card superCenter">
             this is a protected view
           </div>

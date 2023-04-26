@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Register from "./views/Register/Register";
+import ConfirmCode from "./views/Register/ConfirmCode";
+import ResendCode from "./views/Register/ResendCode";
+import Profile from "./views/Profile/Profile";
 import Login from "./views/Login/Login";
-import Home from "./views/Home/Home";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Spinner from 'react-bootstrap/Spinner';
 import Axios from "axios";
@@ -45,11 +47,13 @@ const Routes = () => {
         <BrowserRouter>
           <Layout auth={auth}>
             <Switch> 
+              {!auth ? <Route exact path="/confirm-code" render={() => <ConfirmCode auth={auth}/>}/> : null}
+              {!auth ? <Route exact path="/resend-code" render={() => <ResendCode auth={auth}/>}/> : null}
               {!auth ? <Route exact path="/register" render={() => <Register auth={auth}/>}/> : null}
               {!auth ? <Route exact path="/login" render={() => <Login auth={auth}/>}/> : null}
               {auth ? <Route exact path="/dashboard" render={() => <Dashboard auth={auth}/>}/> : null}
-              <Route exact path="/" render={() => <Home auth={auth}/>}/>
-              <Route exact render={() => <Home auth={auth}/>}/>
+              {auth ? <Route exact path="/profile" render={() => <Profile auth={auth}/>}/> : null}
+              <Route exact render={() => <Login auth={auth}/>}/>
             </Switch>
           </Layout>
         </BrowserRouter>
