@@ -5,22 +5,22 @@
 }
 
 .nav-item .nav-link{
-    color: #6a6a6a;
-    font-size: 0.8rem;
+    color: #404040;
     font-family: Lato-Regular;
 }
 
 .nav-item .active{
-    font-size: 0.8rem;
+    padding-bottom: 3px;
     border-bottom: 5px solid #20C178;
+    font-family: Lato-Regular;
 }
 
 .nav-button { 
+    color: #404040;
     border: 1px solid #20C178;
     border-radius: 8px !important;
     padding: 3px 10px !important; 
-    font-size: 0.9rem !important;
-    font-family: Lato-Light;
+    font-family: Lato-Regular;
 }
 
 .nav-button:focus { 

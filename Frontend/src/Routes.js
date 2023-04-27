@@ -51,7 +51,7 @@ const Routes = () => {
               {!auth ? <Route exact path="/resend-code" render={() => <ResendCode auth={auth}/>}/> : null}
               {!auth ? <Route exact path="/register" render={() => <Register auth={auth}/>}/> : null}
               {!auth ? <Route exact path="/login" render={() => <Login auth={auth}/>}/> : null}
-              {auth ? <Route exact path="/dashboard" render={() => <Dashboard auth={auth}/>}/> : null}
+              {auth ? <Route exact path="/" render={() => <Dashboard auth={auth}/>}/> : null}
               {auth ? <Route exact path="/profile" render={() => <Profile auth={auth}/>}/> : null}
               <Route exact render={() => <Login auth={auth}/>}/>
             </Switch>

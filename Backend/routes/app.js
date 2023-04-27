@@ -24,7 +24,7 @@ router.get("/currentUser", async (req,res) => {
             });
             return;
         }else{
-            let user = await User.findById(response.data.id);
+            let user = await User.findById(response.data._id);
             res.status(200).json({
                 ok: true,
                 user

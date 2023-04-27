@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import Axios from 'axios';
 import toastr from 'toastr';
-import { useHistory } from 'react-router-dom'
 import { setToken } from '../../config/token';
 
 const emailRegexp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/
 
 const LoginLogic = () => {
-  const history = useHistory();
 
   const [loadingSubmit, setLoadingSubmit] = useState(false)
   const [email, setEmail] = useState("")
@@ -44,7 +42,7 @@ const LoginLogic = () => {
           toastr.success('Sesion iniciada!')
           setLoadingSubmit(false)
           setTimeout(() => {
-            history.push("/dashboard")
+            window.location = "/";
           }, 2000);
         }else{
           toastr.remove()

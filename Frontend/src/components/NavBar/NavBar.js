@@ -13,13 +13,10 @@ const NavBar = (props) => {
 			<Nav.Item className="ml-4 mr-auto">
 				{/* <img src={ Logo } alt="" style={{width:"17vw"}}/> */}
 			</Nav.Item>
-			<Nav.Item>
-				<Link className={`superCenter text-center nav-link ${history.location.pathname === "/" ? 'active' : ''}`} to="/" style={{height: '75px'}}>Home</Link>
-			</Nav.Item>
 			{props.auth ?
 				<>
 					<Nav.Item>
-						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/dashboard" ? 'active' : ''}`} to="/dashboard" style={{height: '75px'}}>Dashboard</Link>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/" ? 'active' : ''}`} to="/" style={{height: '75px'}}>Dashboard</Link>
 					</Nav.Item>
 					<Nav.Item>
 						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/profile" ? 'active' : ''}`} to="/profile" style={{height: '75px'}}>Profile</Link>

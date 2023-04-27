@@ -1,21 +1,13 @@
-.login-main{
-  min-height: 100vh;
-  background-image: url('https://picsum.photos/1080/1920');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.login-contenedor{
+.profile-contenedor{
   padding-top: 75px;
 }
 
-.login-card{
+.profile-card{
   background-color: #dddddd90;
   min-height: 40vh;
 }
 
-.login-form{
+.profile-form{
   background-color: #e1e1e1;
   border-radius: 10px;
   padding-top: 3%;
@@ -25,18 +17,23 @@
   margin-right: auto;
 }
 
-.login-button{
+.profile-data{
+  margin: 2rem auto 0.5rem auto;
+  width: 75%;
+}
+
+.profile-button{
   border-radius: 7px;
   font-size: 0.7rem;
   border-color: #20C178;
   color:  #212529;
 }
 
-.login-button:hover{
+.profile-button:hover{
   color:  #20C178;
 }
 
-.login-button:focus { 
+.profile-button:focus { 
   outline: 0 !important;
   box-shadow: 0 0 0 0 !important;
 }

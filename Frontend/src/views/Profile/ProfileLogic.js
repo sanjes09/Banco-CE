@@ -1,70 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import toastr from 'toastr';
-import { useHistory } from 'react-router-dom'
-import { setToken } from '../../config/token';
+import { getToken } from '../../config/token';
 
-const emailRegexp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/
+const ProfileLogic = () => {
 
-const LoginLogic = () => {
-  const history = useHistory();
-
-  const [loadingSubmit, setLoadingSubmit] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [name, setName] = useState("")
+  const [since, setSince] = useState(new Date())
+  const [active, setActive] = useState(false)
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    let error = false;
-
-    setLoadingSubmit(true)
-
-    if(email === '' || password === ''){
-      toastr.remove()
-      toastr.warning("Please complete all the fields");
-      setLoadingSubmit(false)
-      error = true;
-    }
-
-    if(!email.match(emailRegexp)){
-      toastr.remove()
-      toastr.warning("Invalid Email");
-      setLoadingSubmit(false)
-      error = true;
-    }
-
-    if(!error){
-      const data = {
-        email: email,
-        password: password,
+  useEffect(() => {
+    Axios
+    .get('/api/app/currentUser', {headers: {Authorization: 'Bearer ' + getToken()}})
+    .then(response => {
+      if(response.data.ok){
+        setEmail(response.data.user.email)
+        setName(response.data.user.name)
+        setSince(new Date(response.data.user.createdAt))
+        setActive(response.data.user.active)
+        setLoading(false)
+      }else{
+        toastr.warning('Error desconocido!');
+        setLoading(false)
       }
-      Axios.post("/api/login", data).then(response => {
-        if(response.data.ok){
-          setToken(response.data.token);
-          toastr.success('Logged!')
-          setLoadingSubmit(false)
-          setTimeout(() => {
-            history.push("/dashboard")
-          }, 2000);
-        }else{
-          toastr.remove()
-          toastr.warning(response.data.error)
-          setLoadingSubmit(false)
-        }
-      }).catch(err=>{
-        toastr.remove()
-        toastr.warning(err.response.data.error)
-        setLoadingSubmit(false)
-      });
-    }
-  }
+    }).catch(err=>{
+      console.log('err', err)
+      setLoading(false)
+    })
+  },[]);
 
   return {
-    loadingSubmit,
-    setEmail,
-    setPassword,
-    handleLogin,
+    loading,
+    email,
+    name,
+    since,
+    active,
   };
 }
 
-export default LoginLogic;
+export default ProfileLogic;
