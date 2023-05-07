@@ -85,7 +85,7 @@ router.post( '/login', async ( req, res ) => {
     };
     if ( validUser ) {
         console.log(user._id+" logging in");
-        let token = jwt.sign({user}, process.env.SESSION_TOKEN ,{ expiresIn: '1h' });
+        let token = jwt.sign({userID: user._id}, process.env.SESSION_TOKEN ,{ expiresIn: '1h' });
         res.status(200).json({
             ok: true,
             user,
@@ -145,6 +145,7 @@ router.post( '/signup', async ( req, res ) => {
             password: hashedPassword,
             valid: true
         });
+        user.cuenta = "0105"+Math.floor(10000000000000000 + Math.random() * 90000000000000000).toString()
     }catch{
         res.status(400).json({
             ok: false,

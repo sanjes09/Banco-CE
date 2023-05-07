@@ -9,4 +9,4 @@ const schema = new mongoose.Schema({
     date: {type: Date, default: Date.now},
 })
 
-module.exports = mongoose.model('User', schema);
+module.exports = mongoose.model('Transaction', schema);

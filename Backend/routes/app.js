@@ -1,37 +1,43 @@
 //IMPORTS
 const router = require("express").Router();
+const { getAddressBalance } = require("../functions/web3");
 
-//FUNCTIONS
-const { decodeToken } = require('../functions/token');
+//ROUTERS
+const web3Router = require("./web3");
+const accountRouter = require("./account");
+router.use(web3Router);
+router.use(accountRouter);
 
 //MODELS
 const User = require("../models/User");
+const Transaction = require("../models/Transaction");
 
-router.get("/currentUser", async (req,res) => {
-    const token = req.header("Authorization");
-    if (!token){
-        res.status(401).json({ 
-            ok: false,
-            error: "Access Denied" 
-        });
-        return;
-    }else{
-        let response = await decodeToken(token.split(" ")[1], process.env.SESSION_TOKEN);
-        if(response.error){
-            res.status(401).json({
-                ok: false,
-                error: response.error
-            });
-            return;
-        }else{
-            let user = await User.findById(response.data._id);
-            res.status(200).json({
-                ok: true,
-                user
-            });
-            return;
-        }
-    }
+router.get("/currentUser", async (req, res) => {
+    const user = await User.findById(res.locals.userID);
+
+    res.status(200).json({
+        ok: true,
+        user
+    });
+    return;
+});
+
+router.get("/get-dashboard", async (req, res) => {
+    const user = await User.findById(res.locals.userID);
+
+    const txs = await Transaction.find({ $or:[ {from: user._id}, {to: user._id}]}).sort({date: "desc"})
+    const cryptoBanlance = await getAddressBalance(user.address);
+    const balance = user.balance;
+    const cuenta = user.cuenta;
+
+    res.status(200).json({
+        ok: true,
+        txs,
+        cryptoBanlance,
+        balance,
+        cuenta
+    });
+    return;
 });
 
 module.exports = router;

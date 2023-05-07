@@ -59,6 +59,7 @@ app.use('/api/app', async ( req, res, next ) => {
             });
             return;
         }else{
+            res.locals.user = response.userID;
             next();
         }
     }
