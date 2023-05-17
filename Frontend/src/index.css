@@ -34,6 +34,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.platform-button{
+  border-radius: 7px;
+  font-size: 0.7rem;
+  border-color: #20C178;
+  color:  #212529;
+}
+
+.platform-button:hover{
+  color:  #20C178;
+}
+
+.platform-button:focus { 
+  outline: 0 !important;
+  box-shadow: 0 0 0 0 !important;
+}
+
 .superCenter{
   display: flex;
   justify-content: center;

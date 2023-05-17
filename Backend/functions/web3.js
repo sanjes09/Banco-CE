@@ -27,6 +27,7 @@ exports.initAccount = async (address, privkey) => {
 
   } catch (error) {
     console.log('error', error)
+    if(error.reason) throw error.reason
     throw error;
   }
 }
@@ -37,16 +38,17 @@ exports.getAddressBalance = async (address) => {
     return ethers.formatEther(balance);
   } catch (error) {
     console.log('error', error)
-    throw error;
+    if(error.reason) throw error.reason
+    return "0";
   }
 }
 
 exports.transferFrom = async (from, to, amount) => {
   try {
-    const tx = await token.transferFrom(from, to, amount);
-    await tx.wait();
+    return await token.transferFrom(from, to, amount);
   } catch (error) {
     console.log('error', error)
+    if(error.reason) throw error.reason
     throw error;
   }
 }

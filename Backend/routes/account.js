@@ -85,7 +85,7 @@ router.get("/get-account-balance", async (req, res) => {
 router.post("/transfer", async (req, res) => {
     try {
         const user = await User.findById(res.locals.userID);
-        const toUser = await User.findOne({cuenta: req.body.cuenta});
+        const toUser = await User.findOne({cuenta: req.body.account});
         
         if(Number(toUser.balance) - Number(req.body.amount) < 0){
             res.status(400).json({

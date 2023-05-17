@@ -146,6 +146,7 @@ router.post( '/signup', async ( req, res ) => {
             valid: true
         });
         user.cuenta = "0105"+Math.floor(10000000000000000 + Math.random() * 90000000000000000).toString()
+        user.balance = "100"
     }catch{
         res.status(400).json({
             ok: false,

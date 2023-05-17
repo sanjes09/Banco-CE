@@ -1,7 +1,7 @@
 //IMPORTS
 const router = require("express").Router();
 const ethers = require("ethers");
-const { initAccount, getAddressBalance, transfer } = require("../functions/web3");
+const { initAccount, getAddressBalance, transferFrom } = require("../functions/web3");
 
 //FUNCTIONS
 
@@ -80,21 +80,34 @@ router.get("/get-wallet-balance", async (req, res) => {
 router.post("/transfer-token", async (req, res) => {
     try {
         const user = await User.findById(res.locals.userID);
-        const toUser = await User.findOne({cuenta: req.body.cuenta});
+        const toUser = await User.findOne({address: req.body.account});
+
+        if(!toUser) {
+            res.status(400).json({
+                ok: false,
+                error: "Cuenta invalida"
+            });
+            return;
+        }
+
         const correctAmount = ethers.parseEther(req.body.amount);
 
-        await transfer(user.address, toUser.address, correctAmount);
+        const cryptotx = await transferFrom(user.address, toUser.address, correctAmount);
+
+        res.status(200).json({
+            ok: true,
+            tx: cryptotx
+        });
+
+        await cryptotx.wait();
         const tx = new Transaction({
             from: user._id,
             to: toUser._id,
             method: "cripto",
             amount: req.body.amount,
+            txHash: cryptotx.hash
         })
         await tx.save();
-
-        res.status(200).json({
-            ok: true
-        });
         return;
     } catch (error) {
         console.log('error', error)

@@ -22,20 +22,39 @@ router.get("/currentUser", async (req, res) => {
     return;
 });
 
-router.get("/get-dashboard", async (req, res) => {
+router.get("/get-balances", async (req, res) => {
     const user = await User.findById(res.locals.userID);
 
-    const txs = await Transaction.find({ $or:[ {from: user._id}, {to: user._id}]}).sort({date: "desc"})
-    const cryptoBanlance = await getAddressBalance(user.address);
+    const cryptoBalance = await getAddressBalance(user.address);
     const balance = user.balance;
     const cuenta = user.cuenta;
+    const address = user.address;
 
     res.status(200).json({
         ok: true,
-        txs,
-        cryptoBanlance,
+        cryptoBalance,
         balance,
-        cuenta
+        cuenta,
+        address
+    });
+    return;
+});
+
+router.get("/get-history", async (req, res) => {
+    const user = await User.findById(res.locals.userID);
+
+    let txs = await Transaction.find({ $or:[ {from: user._id}, {to: user._id}]})
+    .populate([{path: 'to', select: ['cuenta', 'address']}, {path: 'from', select: ['cuenta', 'address']}])
+    .sort({date: "desc"})
+    txs = txs.map((arg) => {
+        const element = JSON.parse(JSON.stringify(arg))
+        if(element.from._id.toString() === user._id.toString()) element.tipo = "out"
+        else element.tipo = "in"
+        return element
+    })
+    res.status(200).json({
+        ok: true,
+        txs,
     });
     return;
 });

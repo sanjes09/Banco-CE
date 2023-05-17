@@ -6,7 +6,7 @@ exports.decodeToken = (token, key) => {
         if (err) {
             response.error = err.name
         }else{
-            response.data = decoded.user
+            response.data = decoded.userID
         };
     });
     return response;

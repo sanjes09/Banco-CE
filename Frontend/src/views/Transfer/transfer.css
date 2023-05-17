@@ -1,35 +1,43 @@
-.dashboard-contenedor{
+.transfer-contenedor{
   padding-top: 75px;
 }
 
-.dashboard-card{
+.transfer-card{
   background-color: #e1e1e1;
   border-radius: 10px;
   padding-top: 3%;
   padding-bottom: 3%;
   width: 30%;
-  margin-left:auto;
+  margin-left :auto;
   margin-right: auto;
-  min-height: 40vh;
+  min-height: 20vh;
 }
 
-.dashboard-data{
+.transfer-data{
   margin: 2rem auto 0.5rem auto;
-  width: 75%;
+  width: 50%;
 }
 
-.dashboard-button{
+.transfer-button{
   border-radius: 7px;
   font-size: 0.7rem;
   border-color: #20C178;
   color:  #212529;
 }
 
-.dashboard-button:hover{
+.transfer-button-selected{
+  border-radius: 7px;
+  font-size: 0.7rem;
+  border-color: #20C178;
+  background-color: #20C178;
+  color:  #212529;
+}
+
+.transfer-button:hover{
   color:  #20C178;
 }
 
-.dashboard-button:focus { 
+.transfer-button:focus { 
   outline: 0 !important;
   box-shadow: 0 0 0 0 !important;
 }

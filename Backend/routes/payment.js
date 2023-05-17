@@ -110,19 +110,22 @@ router.post("/pay-with-cripto", async (req, res) => {
         }
         
         const correctAmount = ethers.parseEther(req.body.monto);
-        await transferFrom(user.address, business.address, correctAmount);
+        const cryptotx = await transferFrom(user.address, business.address, correctAmount);
 
+        res.status(200).json({
+            ok: true,
+            tx: cryptotx
+        });
+
+        await cryptotx.wait();
         const tx = new Transaction({
             from: user._id,
             to: business._id,
             method: "cripto",
             amount: req.body.monto,
+            txHash: cryptotx.hash
         })
         await tx.save();
-
-        res.status(200).json({
-            ok: true
-        });
         return;
     } catch (error) {
         console.log('error', error)

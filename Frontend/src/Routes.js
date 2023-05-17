@@ -6,6 +6,8 @@ import ResendCode from "./views/Register/ResendCode";
 import Profile from "./views/Profile/Profile";
 import Login from "./views/Login/Login";
 import Dashboard from "./views/Dashboard/Dashboard";
+import Transfer from "./views/Transfer/Transfer";
+import History from "./views/History/History";
 import Spinner from 'react-bootstrap/Spinner';
 import Axios from "axios";
 import toastr from 'toastr';
@@ -53,6 +55,8 @@ const Routes = () => {
               {!auth ? <Route exact path="/login" render={() => <Login auth={auth}/>}/> : null}
               {auth ? <Route exact path="/" render={() => <Dashboard auth={auth}/>}/> : null}
               {auth ? <Route exact path="/profile" render={() => <Profile auth={auth}/>}/> : null}
+              {auth ? <Route exact path="/transfer" render={() => <Transfer auth={auth}/>}/> : null}
+              {auth ? <Route exact path="/history" render={() => <History auth={auth}/>}/> : null}
               <Route exact render={() => <Login auth={auth}/>}/>
             </Switch>
           </Layout>

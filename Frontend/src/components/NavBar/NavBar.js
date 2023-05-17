@@ -16,23 +16,29 @@ const NavBar = (props) => {
 			{props.auth ?
 				<>
 					<Nav.Item>
-						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/" ? 'active' : ''}`} to="/" style={{height: '75px'}}>Dashboard</Link>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/" ? 'active' : ''}`} to="/" style={{height: '75px'}}>Tablero</Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/profile" ? 'active' : ''}`} to="/profile" style={{height: '75px'}}>Profile</Link>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/transfer" ? 'active' : ''}`} to="/transfer" style={{height: '75px'}}>Transferir</Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/history" ? 'active' : ''}`} to="/history" style={{height: '75px'}}>Historial</Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/profile" ? 'active' : ''}`} to="/profile" style={{height: '75px'}}>Perfil</Link>
 					</Nav.Item>
 
 					<Link to='/login' className="btn mx-3 nav-button" onClick={logout}>
-						Log out
+						Cerrar sesión
 					</Link>
 				</>
 				:
 				<>
 					<Nav.Item>
-						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/register" ? 'active' : ''}`} to="/register" style={{height: '75px'}}>Register</Link>
+						<Link className={`superCenter text-center nav-link ${history.location.pathname === "/register" ? 'active' : ''}`} to="/register" style={{height: '75px'}}>Registrar</Link>
 					</Nav.Item>
 					<Link to='/login' className="btn mx-3 nav-button">
-						Log in
+						Inicar sesión
 					</Link>
 				</>
 			}

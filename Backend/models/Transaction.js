@@ -5,6 +5,7 @@ const schema = new mongoose.Schema({
     from: {type: Schema.Types.ObjectId, ref: "User"},
     to: {type: Schema.Types.ObjectId, ref: "User"},
     method: {type: String, required: true},
+    txHash: {type: String},
     amount: {type: Number, required: true},
     date: {type: Date, default: Date.now},
 })

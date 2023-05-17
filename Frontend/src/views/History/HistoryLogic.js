@@ -3,40 +3,35 @@ import axios from 'axios';
 import toastr from 'toastr';
 import { getToken } from '../../config/token';
 
-const DashboardLogic = () => {
+const HistoryLogic = () => {
 
   const [loadingInfo, setLoadingInfo] = useState(true)
-  const [userInfo, setUserInfo] = useState()
+  const [txs, setTxs] = useState([])
 
   useEffect(() => {
-    axios.get("/api/app/get-balances", {headers: {Authorization: 'Bearer ' + getToken()}})
+    axios.get("/api/app/get-History", {headers: {Authorization: 'Bearer ' + getToken()}})
     .then(response => {
       if(response.data.ok){
-        setUserInfo({
-          cryptoBalance: response.data.cryptoBalance,
-          balance: response.data.balance,
-          cuenta: response.data.cuenta,
-          address: response.data.address
-        })
+        setTxs(response.data.txs)
         setLoadingInfo(false)
       }else{
         toastr.remove()
         toastr.warning(response.data.error)
-        setUserInfo()
+        setTxs([])
         setLoadingInfo(false)
       }
     }).catch(err=>{
       toastr.remove()
       toastr.warning(err.response.data.error)
-      setUserInfo()
+      setTxs([])
       setLoadingInfo(false)
     });
   }, [])
   
   return {
-    userInfo,
+    txs,
     loadingInfo
   };
 }
 
-export default DashboardLogic;
+export default HistoryLogic;
