@@ -7,7 +7,7 @@ const TransferLogic = () => {
 
   const [loadingInfo, setLoadingInfo] = useState(true)
   const [loadingTx, setLoadingTx] = useState(false)
-  const [isCripto, setIsCripto] = useState(true)
+  const [isCripto, setIsCripto] = useState(false)
   const [tx, setTx] = useState("")
   const [amount, setAmount] = useState("")
   const [account, setAccount] = useState("")

@@ -33,6 +33,7 @@ exports.initAccount = async (address, privkey) => {
 }
 
 exports.getAddressBalance = async (address) => {
+  if(!address) return "0"
   try {
     const balance = await token.balanceOf(address);
     return ethers.formatEther(balance);

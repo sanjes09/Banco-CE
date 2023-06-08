@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
     method: {type: String, required: true},
     txHash: {type: String},
     amount: {type: Number, required: true},
+    external: {type: Boolean, default: false},
     date: {type: Date, default: Date.now},
 })
 

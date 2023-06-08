@@ -15,14 +15,14 @@ const schema = new mongoose.Schema({
     expirationDate: {type: String, default: 0},
     
     // web3
-    paymentPin: {type: Number},
-    mnemonic: {type: String},
-    address: {type: String},
-    privKey: {type: String},
+    paymentPin: {type: Number, default: 0},
+    mnemonic: {type: String, default: ""},
+    address: {type: String, default: ""},
+    privKey: {type: String, default: ""},
 
     //empresa
     juridico: {type: Boolean, default: false},
-    token: {type: String}
+    token: {type: String, default: ""}
 })
 
 module.exports = mongoose.model('User', schema);

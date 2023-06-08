@@ -24,28 +24,10 @@ router.get("/generate-wallet", async (req, res) => {
             ok: true,
             userAddress: user.address
         });
-        return;
-        
-    } catch (error) {
-        console.log('error', error)
-        res.status(400).json({
-            ok: false,
-            error
-        });
-        return;
-    }
-});
 
-router.get("/activate-wallet", async (req, res) => {
-    try {
-        const user = await User.findById(res.locals.userID);
-
+        console.log("Funding ", user.address);
         await initAccount(user.address, user.privKey);
-
-        res.status(200).json({
-            ok: true,
-            userAddress: user.address
-        });
+        console.log(user.address, "Fully funded");
         return;
         
     } catch (error) {

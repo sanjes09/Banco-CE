@@ -59,4 +59,23 @@ router.get("/get-history", async (req, res) => {
     return;
 });
 
+router.get("/get-business-history", async (req, res) => {
+    const user = await User.findById(res.locals.userID);
+
+    let txs = await Transaction.find({ $or:[ {from: user._id, external: true}, {to: user._id, external: true}]})
+    .populate([{path: 'to', select: ['cuenta', 'address']}, {path: 'from', select: ['cuenta', 'address']}])
+    .sort({date: "desc"})
+    txs = txs.map((arg) => {
+        const element = JSON.parse(JSON.stringify(arg))
+        if(element.from._id.toString() === user._id.toString()) element.tipo = "out"
+        else element.tipo = "in"
+        return element
+    })
+    res.status(200).json({
+        ok: true,
+        txs,
+    });
+    return;
+});
+
 module.exports = router;

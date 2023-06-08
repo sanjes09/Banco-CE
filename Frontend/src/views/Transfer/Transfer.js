@@ -23,16 +23,19 @@ const Transfer = (props) => {
       <div className="transfer-contenedor">
         <div className="row mx-0 px-0" style={{marginTop: '20vh'}}>
           <div className="col-6 mx-auto border-shadow transfer-card">
-            <div className="superCenter">
-              <button onClick={()=>setIsCripto(true)} className={`col-3 btn btn-sm mx-auto transfer-button ${isCripto ? "transfer-button-selected" : ""}`}>Transferir criptomoneda</button>
-              <button onClick={()=>setIsCripto(false)} className={`col-3 btn btn-sm mx-auto transfer-button ${!isCripto ? "transfer-button-selected" : ""}`}>Transferir por banco</button>
-            </div>
+            
             {loadingInfo ? 
               <div className="superCenter">
                 <Spinner animation="border" size='md'/>
               </div>
             :
             <>
+              {userInfo?.address !== "" && 
+                <div className="superCenter">
+                  <button onClick={()=>setIsCripto(true)} className={`col-3 btn btn-sm mx-auto transfer-button ${isCripto ? "transfer-button-selected" : ""}`}>Transferir criptomoneda</button>
+                  <button onClick={()=>setIsCripto(false)} className={`col-3 btn btn-sm mx-auto transfer-button ${!isCripto ? "transfer-button-selected" : ""}`}>Transferir por banco</button>
+                </div>
+              }
               <p className="text-center my-3">Balance: {isCripto ? `${userInfo?.cryptoBalance}USDC` : `${userInfo?.balance}$`}</p>
               <form className="border-shadow transfer-form" onSubmit={handleForm}>
                 <div className="row my-3">

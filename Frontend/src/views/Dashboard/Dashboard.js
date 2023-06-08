@@ -35,8 +35,12 @@ const Dashboard = (props) => {
                     <td>{userInfo?.balance} $</td>
                   </tr>
                   <tr style={{borderTop: "0.2rem solid grey"}}>
-                    <th scope="row"><a rel="noreferrer" target="_blank" href={`https://testnet.snowtrace.io/token/0xc50c1cbb26f87f5e62cbaa092f3028ab4377b99b?a=${userInfo?.address}`}>{userInfo?.address || "Necesita activar la cuenta"}</a></th>
-                    <td>{userInfo?.cryptoBalance} USDC</td>
+                    {userInfo?.address &&
+                      <>
+                        <th scope="row"><a rel="noreferrer" target="_blank" href={`https://testnet.snowtrace.io/token/0xc50c1cbb26f87f5e62cbaa092f3028ab4377b99b?a=${userInfo?.address}`}>{userInfo?.address || "Necesita activar la cuenta"}</a></th>
+                        <td>{userInfo?.cryptoBalance} USDC</td>
+                      </>
+                    }
                   </tr>
                 </tbody>
               </table>

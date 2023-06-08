@@ -60,6 +60,7 @@ router.get("/pay-with-tdc", async (req, res) => {
             to: business._id,
             method: "tdc",
             amount: req.body.monto,
+            external: true
         })
         await tx.save();
         
@@ -123,7 +124,8 @@ router.post("/pay-with-cripto", async (req, res) => {
             to: business._id,
             method: "cripto",
             amount: req.body.monto,
-            txHash: cryptotx.hash
+            txHash: cryptotx.hash,
+            external: true
         })
         await tx.save();
         return;

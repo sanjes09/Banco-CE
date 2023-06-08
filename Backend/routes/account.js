@@ -1,5 +1,6 @@
 //IMPORTS
 const router = require("express").Router();
+const { hash } = require('../functions/passwordHash');
 
 //MODELS
 const User = require("../models/User");
@@ -17,8 +18,8 @@ router.get("/generate-tdc", async (req, res) => {
 
         res.status(200).json({
             ok: true,
-            creditCard,
-            cvv
+            creditCard: user.creditCard,
+            cvv: user.cvv
         });
         return;
         
@@ -35,16 +36,10 @@ router.get("/generate-tdc", async (req, res) => {
 router.get("/generate-business-token", async (req, res) => {
     try {
         const user = await User.findById(res.locals.userID);
-        if(!user.juridico){
-            res.status(400).json({
-                ok: false,
-                error: "No eres un comercio autorizado"
-            });
-            return;
-        }
-
-        user.token = String(Date.now())+Math.floor(10000000 + Math.random() * 90000000).toString();
-
+        const hashedId = await hash(String(user._id));
+        user.token = hashedId.substring(8,29);
+        user.juridico = true;
+        
         await user.save();
 
         res.status(200).json({
