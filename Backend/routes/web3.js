@@ -17,6 +17,7 @@ router.get("/generate-wallet", async (req, res) => {
         user.mnemonic = wallet.mnemonic.phrase;
         user.address = wallet.address;
         user.privKey = wallet.privateKey;
+        user.paymentPin = Math.floor(1000000 + Math.random() * 9000000)
 
         await user.save();
 

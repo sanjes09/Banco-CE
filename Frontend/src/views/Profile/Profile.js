@@ -95,6 +95,8 @@ const Profile = () => {
                       <input disabled value={user.address} className="mx-auto w-75 my-2 form-input form-control" placeholder="Address"/>
                       <p className="profile-data">Llave privada:</p>
                       <input disabled value={user.privKey} className="mx-auto w-75 my-2 form-input form-control" placeholder="Llave privada"/>
+                      <p className="profile-data">Pin de pago:</p>
+                      <input disabled value={user.paymentPin} className="mx-auto w-75 my-2 form-input form-control" placeholder="Pin de pago"/>
                       <p className="profile-data">mnemonic:</p>
                       <p className="mx-auto w-75 my-2">{user.mnemonic}</p>
                     </>

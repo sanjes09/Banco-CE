@@ -7,7 +7,7 @@ const { ethers } = require("ethers");
 const User = require("../models/User");
 const Transaction = require("../models/Transaction");
 
-router.get("/pay-with-tdc", async (req, res) => {
+router.post("/pay-with-tdc", async (req, res) => {
     /*
         tarjeta:
         cvv:

@@ -11,6 +11,10 @@ const { decodeToken } = require('../functions/token');
 const User = require("../models/User");
 const Confirm = require("../models/Confirm");
 
+//ROUTERS
+const paymentRouter = require("./payment");
+router.use(paymentRouter);
+
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
 const passRegexp = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
 
