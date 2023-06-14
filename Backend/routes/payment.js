@@ -32,6 +32,15 @@ router.post("/pay-with-tdc", async (req, res) => {
             });
             return;
         }
+
+        if(String(user._id) === String(business._id)){
+            res.status(400).json({
+                ok: false,
+                error: "No puede pagar la cuenta empresarial"
+            });
+            return;
+        }
+
         if(user.expirationDate !== req.body.fecha){
             res.status(400).json({
                 ok: false,

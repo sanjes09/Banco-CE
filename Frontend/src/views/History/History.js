@@ -32,9 +32,9 @@ const History = (props) => {
                 </thead>
                 <tbody>
                   {txs.map((arg, index) => {
-                    const cuenta = arg.method === "banco" ? arg.from.cuenta : arg.from.address;
-                    const para = arg.method === "banco" ? arg.to.cuenta : arg.to.address;
-                    const monto = arg.method === "banco" ? `${arg.amount}$` : `${arg.amount}USDC`;
+                    const cuenta = arg.method === "banco" || arg.method === "tdc" ? arg.from.cuenta : arg.from.address;
+                    const para = arg.method === "banco" || arg.method === "tdc" ? arg.to.cuenta : arg.to.address;
+                    const monto = arg.method === "banco" || arg.method === "tdc" ? `${arg.amount}$` : `${arg.amount}USDC`;
                     const fecha = new Date(arg.date);
                     const color = arg.tipo === "in" ? "green" : "red"
                     const signo = arg.tipo === "in" ? "+" : "-"
