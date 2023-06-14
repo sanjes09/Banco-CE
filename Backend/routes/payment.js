@@ -24,8 +24,7 @@ router.post("/pay-with-tdc", async (req, res) => {
             });
             return;
         }
-
-        const user = await User.findOne({tarjeta: req.body.tarjeta, cvv: req.body.cvv});
+        const user = await User.findOne({creditCard: req.body.tarjeta, cvv: Number(req.body.cvv)});
         if(!user){
             res.status(400).json({
                 ok: false,
@@ -41,7 +40,7 @@ router.post("/pay-with-tdc", async (req, res) => {
             return;
         }
 
-        if(Number(user.amount) - Number(req.body.monto) < 0){
+        if(Number(user.balance) - Number(req.body.monto) < 0){
             res.status(400).json({
                 ok: false,
                 error: "Saldo insuficiente"
@@ -63,6 +62,11 @@ router.post("/pay-with-tdc", async (req, res) => {
             external: true
         })
         await tx.save();
+
+        res.status(200).json({
+            ok: true
+        });
+        return;
         
     } catch (error) {
         console.log('error', error)
@@ -91,7 +95,7 @@ router.post("/pay-with-cripto", async (req, res) => {
             return;
         }
 
-        const user = await User.findOne({email: req.body.correo, pin: req.body.pin});
+        const user = await User.findOne({email: req.body.correo, paymentPin: Number(req.body.pin)});
         if(!user){
             res.status(400).json({
                 ok: false,
@@ -110,7 +114,7 @@ router.post("/pay-with-cripto", async (req, res) => {
             return;
         }
         
-        const correctAmount = ethers.parseEther(req.body.monto);
+        const correctAmount = ethers.parseEther(String(req.body.monto));
         const cryptotx = await transferFrom(user.address, business.address, correctAmount);
 
         res.status(200).json({
